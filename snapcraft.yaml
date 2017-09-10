@@ -9,8 +9,8 @@ grade: stable
 confinement: devmode
 
 apps:
-  server:
-    command: index.js
+  daemon:
+    command: bin/daemon
     plugs: [home, network, network-bind]
   cc-tool:
     command: cc-tool
