@@ -1,0 +1,33 @@
+name: mcu-pro
+version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
+summary: MCU Programming Tool
+description: |
+  This tool can drive programmers to erase, program, and verify MCU, controlled by web API.
+
+grade: stable
+
+confinement: devmode
+
+apps:
+  server:
+    command: index.js
+    plugs: [home, network, network-bind]
+  cc-tool:
+    command: cc-tool
+    plugs: [raw-usb, home, network, network-bind]
+
+parts:
+  daemon:
+    source: https://github.com/rabbitom/mcu-pro-daemon.git
+    plugin: nodejs
+    node-engine: 6.11.3
+  cc-tool:
+    source: https://github.com/dashesy/cc-tool.git
+    plugin: autotools
+    stage-packages:
+        - libusb-1.0-0-dev
+        - libboost-filesystem-dev
+        - libboost-system-dev
+        - libboost-program-options-dev
+        - libboost-regex-dev
+        - pkg-config
